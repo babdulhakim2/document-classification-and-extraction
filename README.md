@@ -1,6 +1,6 @@
-# Document Classification & Extraction (Prototype)
+# Document Classification & Extraction
 
-Minimal prototype to upload files, categorise into predefined classes, and extract key entities using LLMs via OpenRouter. Built for speed, clarity, and robustness without unnecessary complexity.
+Minimal prototype to upload files, categorise into predefined classes with a focus of on fraud prevention , and extract key entities using LLMs via OpenRouter. Built for speed, clarity, and robustness.
 
 ## Run
 
@@ -44,6 +44,10 @@ Note: `.streamlit/config.toml` sets `server.maxUploadSize=10` to match app limit
 - Classification and Judge run in parallel across files using a thread pool sized by `MAX_CONCURRENT_REQUESTS`.
 - Judge uses structured outputs (JSON schema) for consistent `{confidence, reasoning}` and falls back automatically if a provider rejects schemas.
 - Images are compressed; large text inputs are truncated to control payload size.
+ 
+Tuning tips:
+- Increase `MAX_CONCURRENT_REQUESTS` for more parallelism (watch rate limits).
+- Prefer `PDF_ENGINE=pdf-text` for speed; use `mistral-ocr` only for scanned PDFs.
 
 ## Output Format
 
@@ -70,11 +74,20 @@ Example:
 ## Limitations
 
 - DOC/DOCX are attached as files (LLMs may not parse perfectly)
-- Large/complex PDFs may benefit from  a better pdf engine
+- Large/complex PDFs may benefit from a better PDF engine
 - Defaults target clarity over advanced batching/caching
+ - Judge is probabilistic; may underrate a correct extraction. Use verifiable checks and/or better metrics to quantify reliability.
+ - Fraud scenarios: LLMs can be spoofed by synthesized or manipulated images; no cryptographic/authenticity checks are performed.
+ - PII handling: outputs may contain sensitive data; ensure appropriate governance.
 
 ## Improvements (Future)
 
 - Add `.docx` text extraction (python-docx)
 - Pluggable model selection per file type
-- Optional caching of parsed PDFs (reuse annotations)
+ - Verifiable checks: rule-based consistency (sums, line-item totals, date ranges), schema constraints, and sanity bounds.
+ - Metrics: create a gold set; compute category accuracy and entity-level precision/recall/F1; track false positives/negatives and calibration of judge scores.
+ - Dataset + fine-tuning: collect labeled examples for domain categories/entities; consider lightweight fine-tunes for the classifier head.
+ - Prompt optimization: explore DSPy-style prompt programs to optimize extraction given known input/output schemas.
+ - `.docx` extraction: parse text via `python-docx` before sending to model.
+ - Anomaly/OOD detection: simple heuristics or embeddings to flag out-of-distribution files.
+ - Caching: reuse parsed PDF annotations to avoid re-parse costs.
