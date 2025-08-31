@@ -84,6 +84,7 @@ Example:
 - Fraud scenarios: LLMs can be spoofed by synthesized or manipulated images; no cryptographic/authenticity checks are performed.
 - PII handling: outputs may contain sensitive data; ensure appropriate governance.
 - Rate limiting: Providers may throttle requests. Basic retries/backoff are implemented, but sustained high concurrency may still hit limits; consider adaptive throttling or a queue for production.
+- Fixed categories: The classifier uses a predefined set (`invoice`, `marketplace_screenshot`, `chat_screenshot`, `website_screenshot`, `other`). Anything outside these maps to `other` by design. Extending categories requires updating the prompt/schema and downstream logic.
 
 ## Improvements (Future)
 
