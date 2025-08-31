@@ -193,6 +193,7 @@ def main():
     st.markdown("Upload documents to classify and extract structured data.")
     
     pipeline = load_pipeline()
+    accepted_exts = get_supported_extensions()
     
     col1, col2 = st.columns([1, 3])
     
@@ -205,7 +206,6 @@ def main():
         model_choice = st.selectbox("Select Model", available_models, index=default_idx)
         
         st.subheader("Upload Files")
-        accepted_exts = get_supported_extensions()
         help_text = (
             f"Max: {settings.max_file_size_mb}MB per file, "
             f"{settings.max_files_per_batch} files total. "
@@ -241,7 +241,6 @@ def main():
             st.info("Upload files to get started")
 
             models_list = ", ".join(settings.available_models.keys()) or "(none configured)"
-            accepted_exts = get_supported_extensions()
             st.markdown(
                 f"""
                 **Categories**: Invoice, Marketplace Screenshot, Chat Screenshot, Website Screenshot, Other

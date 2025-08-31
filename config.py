@@ -16,7 +16,6 @@ SUPPORTED_FILE_TYPES = [
 
 AVAILABLE_MODELS = {
     "gemini-flash-2.5": "google/gemini-2.5-flash",
-    "gemini-2.5-pro": "google/gemini-2.5-pro", 
     "gpt-4o": "openai/gpt-4o"
 }
 

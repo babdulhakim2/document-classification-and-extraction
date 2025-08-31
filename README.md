@@ -76,9 +76,10 @@ Example:
 - DOC/DOCX are attached as files (LLMs may not parse perfectly)
 - Large/complex PDFs may benefit from a better PDF engine
 - Defaults target clarity over advanced batching/caching
- - Judge is probabilistic; may underrate a correct extraction. Use verifiable checks and/or better metrics to quantify reliability.
- - Fraud scenarios: LLMs can be spoofed by synthesized or manipulated images; no cryptographic/authenticity checks are performed.
- - PII handling: outputs may contain sensitive data; ensure appropriate governance.
+- Judge is probabilistic; may underrate a correct extraction. Use verifiable checks and/or better metrics to quantify reliability.
+- Fraud scenarios: LLMs can be spoofed by synthesized or manipulated images; no cryptographic/authenticity checks are performed.
+- PII handling: outputs may contain sensitive data; ensure appropriate governance.
+- Rate limiting: Providers may throttle requests. Basic retries/backoff are implemented, but sustained high concurrency may still hit limits; consider adaptive throttling or a queue for production.
 
 ## Improvements (Future)
 
