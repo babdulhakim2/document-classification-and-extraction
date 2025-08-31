@@ -4,7 +4,11 @@ Minimal prototype to upload files, categorise into predefined classes with a foc
 
 ## Run
 
-- Install: `pip install -r requirements.txt`
+- Create venv: `python3 -m venv .venv`
+- Activate venv:
+  - macOS/Linux: `source .venv/bin/activate`
+  - Windows (PowerShell): `.venv\\Scripts\\Activate.ps1`
+- Install deps: `pip install -r requirements.txt`
 - Env: create `.env` with `OPENROUTER_API_KEY=...`
 - Start: `streamlit run app.py`
 
