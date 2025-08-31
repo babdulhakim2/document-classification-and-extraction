@@ -10,8 +10,15 @@ class DocumentCategory(str, Enum):
     OTHER = "other"
 
 class ExtractedEntities(BaseModel):
-    class Config:
-        extra = "allow"
+    model_config = {"extra": "allow"}
+
+class ExtractionResponse(BaseModel):
+    category: DocumentCategory
+    entities: ExtractedEntities
+
+class JudgeResponse(BaseModel):
+    confidence: float = Field(ge=0.0, le=1.0)
+    reasoning: str
 
 class DocumentResult(BaseModel):
     category: DocumentCategory

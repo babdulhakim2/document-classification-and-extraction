@@ -1,0 +1,5 @@
+[server]
+# Keep Streamlit's upload cap aligned with app config
+# Update this to match `MAX_FILE_SIZE_MB` if you change it.
+maxUploadSize = 10
+
